@@ -14,11 +14,15 @@ open class EJSTemplate {
     /// By default reads ejs.js from framework bundle.
     #if SWIFT_PACKAGE
     static let bundle = { () -> Bundle in
+        print("Bundle.module start")
         print("Bundle.module.bundlePath: \(Bundle.module.bundlePath)")
         return Bundle.module
     }()
     #else
-    static let bundle = Bundle(for: EJSTemplate.self)
+    static let bundle = { () -> Bundle in
+        print("Bundle.bundlePath: \(Bundle.module.bundlePath)")
+        return Bundle(for: EJSTemplate.self)
+    }()
     #endif
     public static var ejsPath: Path! = bundle.path(forResource: "ejs", ofType: "js").map({ Path($0) })
 
