@@ -13,7 +13,10 @@ open class EJSTemplate {
     /// Should be set to the path of EJS before rendering any template.
     /// By default reads ejs.js from framework bundle.
     #if SWIFT_PACKAGE
-    static let bundle = Bundle.module
+    static let bundle = { () -> Bundle in
+        fatalError()
+        return Bundle.module
+    }()
     #else
     static let bundle = Bundle(for: EJSTemplate.self)
     #endif
